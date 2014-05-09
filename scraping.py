@@ -1,26 +1,27 @@
 """
- Scraping.py is a module that is used by crawler.py
- It encapsulates anything that we need to scrape the page effectively
+Author: Gabriele M. Nunez (http://thecoconutcoder.com)
+scraping.py is a module that is used by crawler.py
+It encapsulates anything that we need to scrape the page effectively
+Requirements: BeautifulSoup
 """
 import urllib.request
 import urllib.parse
 import urllib.error
 from bs4 import BeautifulSoup
 class WebScraper:
-    def scrape(self):
+    def scrape(self,page):
         try:
+            self.page = page
             head = {"User-Agent": "Crawler.py Bot"}
             req = urllib.request.Request(self.page, headers=head)
             self.soup = BeautifulSoup(urllib.request.urlopen(req))
             return True
         except ValueError as exception:
-            print("Bad Value")
+            print("Scraped fail. Value Error")
             return False
         except urllib.error.URLError as exception:
-            print("Bad Url")
+            print("Scraped fail. URL Error: {0}".format(exception.errno))
             return False
-    def set_page(self, page):
-        self.page = page
     def get_link_urls(self):
         urls = []
         index = 0
