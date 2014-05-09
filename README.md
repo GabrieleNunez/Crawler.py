@@ -6,6 +6,10 @@ It scrapes the page for any anchor elements and goes from there.
 
 This script is still *_in_development_* and *_should_* not be used yet.
 
+## Requirements
+* *BeautifulSoup 4.3* to install do the following
+> pip install beautifulsoup4
+* *Python 3.4*
 ## TODO
 * Make it more advanced.
     * Scan document for key words
