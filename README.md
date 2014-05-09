@@ -10,7 +10,7 @@ This script is still *_in_development_* and *_should_* not be used yet.
 * Make it more advanced.
     * Scan document for key words
 * Document better (Edit: Getting there)
-* ~Refactor out to separate modules for code clarity~
+* ~~Refactor out to separate modules for code clarity~~
 
 ## Known Bugs
 * Actually visits page, meaning if its get a link to a file it will try to scan the file
