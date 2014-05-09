@@ -31,9 +31,9 @@ def make_dir(path):
 def make_file(content, directory, isLink):
     if content != None and len(content) > 0:
         try:
-            extension = ".img"
+            extension = "img"
             if isLink:
-                extension = ".link"
+                extension = "link"
             hashPath = "{0}.{1}".format(do_hash(content), extension)
             path = os.path.join(directory, hashPath)
             if os.path.exists(path):
@@ -65,9 +65,7 @@ def index_file(content, dir, isLink):
 def index_domain(domain):
     if valid_string(domain) and make_dir(domain):
         print("Directory made for {0}".format(domain))
-def go_index(page, tracker):
-    time.sleep(.5)
-    print("Want to index {0}".format(page))
+def go_index(page):
     scraper = WebScraper()
     scraper.set_page(page)
     if scraper.scrape():
@@ -77,16 +75,14 @@ def go_index(page, tracker):
         urls = scraper.get_link_urls()
         if has_crawable(urls):
             for url in urls:
-                domain = get_domain(url)
-                index_domain(domain)
-                index_file(url, domain, True)
-                if url != scraper.page and url not in tracker:
-                    tracker.insert(len(tracker)-1, url)
-                    go_index(url, tracker)
+                hashPath = "{0}.link".format(do_hash(url))
+                path = os.path.join(domain, hashPath)
+                if not os.path.exists(path) and url != scraper.page:
+                    index_file(url, domain, True)
+                    go_index(url)
     else:
         print("Can not scrape requested page {0}".format(page))
-tracker = []
 if len(sys.argv) >= 2:
-    go_index(sys.argv[1], tracker)
+    go_index(sys.argv[1])
 else:
     print("No address specified")
