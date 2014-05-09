@@ -7,10 +7,14 @@ It scrapes the page for any anchor elements and goes from there.
 This script is still *_in_development_* and *_should_* not be used yet.
 
 ## TODO
-* Make it more advanced. Get image urls
-* Document better
-* Refactor out to seperate modules for code clarity
-* I'm sure this list will go 
+* Make it more advanced.
+    * Scan document for key words
+* Document better (Edit: Getting there)
+* ~Refactor out to separate modules for code clarity~
 
-## known Bugs
-* Malform url's will trip the script up and potentially cause an early stop
+## Known Bugs
+* Actually visits page, meaning if its get a link to a file it will try to scan the file
+* Recursion limit is reached easily
+     * Solution might be to once it reaches limit to simply kill the script and let the system reclaim the memory
+	 * Then start the script back up where it left off
+* RAM hog
