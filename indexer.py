@@ -1,3 +1,8 @@
+"""
+Author: Gabriele M. Nunez (http://thecoconutcoder.com)
+indexer.py is a module that is used by crawler.py
+It makes performing indexing just a little bit easier
+"""
 import os
 import os.path
 import hashlib
@@ -5,6 +10,8 @@ import urllib.request
 import urllib.parse
 import urllib.error
 
+def valid_string(string):
+    return string != None and len(string) > 8
 def do_hash(hashItem):
     return  hashlib.sha256("{0}".format(hashItem).encode(encoding="utf-8", errors="replace")).hexdigest()
 def make_dir(path):
@@ -20,7 +27,7 @@ def make_dir(path):
         print("Could not make_dir: errno: {0}".format(exception.errno))
         return False
 def make_file(content, directory, isLink):
-    if content != None and len(content) > 0:
+    if valid_string(content):
         try:
             extension = "img"
             if isLink:
@@ -40,8 +47,6 @@ def make_file(content, directory, isLink):
             return False
     else:
         return False
-def valid_string(string):
-    return string != None and len(string) > 8
 def get_domain(url):
     if valid_string(url):
         r = urllib.parse.urlparse(url)
@@ -51,8 +56,8 @@ def get_domain(url):
         return ""
 def has_crawable(urls):
     return len(urls) > 0
-def index_file(content, dir, isLink):
-    if make_file(content, dir, isLink):
+def index_file(content, directory, isLink):
+    if make_file(content, directory, isLink):
         print("Index created for {0}...".format(content[:30]))
 def index_domain(domain):
     if valid_string(domain) and make_dir(domain):
